@@ -1,14 +1,29 @@
 info:
-  name: "CCTV "
+  name: "CCTV API - Get All Cameras"
   type: http
   seq: 1
+  description: |
+    Endpoint ini digunakan untuk mengambil daftar seluruh CCTV yang tersedia di Kudus.
+
+    🔹 Method: GET  
+    🔹 URL: /api/get-cctv  
+    🔹 Header wajib: X-SDC  
+
+    🔧 API Testing:
+    Endpoint ini dapat diuji menggunakan beberapa tools:
+    - Bruno (direkomendasikan untuk project ini)
+    - Postman
+    - Insomnia
+    - Curl / Terminal
 
 http:
   method: GET
   url: https://kudussehat.kuduskab.go.id/api/get-cctv
+
   headers:
     - name: X-SDC
       value: sdsi72392knqw2hhuhsi21380sdisidSHSIAbA12bhsjk23Sndj
+
   auth: inherit
 
 settings:
@@ -16,3 +31,58 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+
+docs:
+  description: |
+    📌 Cara Testing API:
+
+    ▶ Menggunakan Bruno:
+    - Import file ini ke Bruno
+    - Klik "Send Request"
+
+    ▶ Menggunakan Postman:
+    - Method: GET
+    - URL: https://kudussehat.kuduskab.go.id/api/get-cctv
+    - Header:
+        Key: X-SDC
+        Value: sdsi72392knqw2hhuhsi21380sdisidSHSIAbA12bhsjk23Sndj
+
+    ▶ Menggunakan Curl:
+    curl -X GET "https://kudussehat.kuduskab.go.id/api/get-cctv" \
+    -H "X-SDC: sdsi72392knqw2hhuhsi21380sdisidSHSIAbA12bhsjk23Sndj"
+
+    📌 Response yang diharapkan:
+
+    {
+      "success": true,
+      "message": "berhasil",
+      "camera": [
+        {
+          "id": 46,
+          "nama": "Simpang Jetak",
+          "lat": "-6.7875576",
+          "long": "110.7928919",
+          "url": "https://stream.kuduskab.go.id/memfs/xxx.m3u8",
+          "status": "ACTIVE"
+        }
+      ]
+    }
+
+  fields:
+    - name: id
+      description: ID unik kamera
+
+    - name: nama
+      description: Nama lokasi CCTV
+
+    - name: url
+      description: Link stream CCTV (format .m3u8)
+
+    - name: lat
+      description: Latitude lokasi kamera
+
+    - name: long
+      description: Longitude lokasi kamera
+
+    - name: status
+      description: Status kamera (ACTIVE / NON-ACTIVE)
